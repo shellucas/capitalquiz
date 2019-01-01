@@ -1,10 +1,12 @@
 package com.shellucas.data.utils;
 
+import quiz.Main;
+
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +15,8 @@ import java.util.Map;
  */
 public class CountryFileReader {
 
-    private Path file;
+    private static final String PATH = "/capitals/capitals_";
+    private InputStream inputStream;
 
     public CountryFileReader() {
     }
@@ -22,7 +25,7 @@ public class CountryFileReader {
         setContinent(continent);
 
         Map<String, String> countries = new HashMap<>();
-        try (BufferedReader reader = Files.newBufferedReader(file)) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] country = line.split(" - ");
@@ -35,17 +38,12 @@ public class CountryFileReader {
     }
 
     private void setContinent(Continent continent) {
-        String BASE_URL = "src/com/shellucas/data/resources/";
-        String url = BASE_URL;
-        switch (continent) {
-            case AFRICA: url += "capitals_africa"; break;
-            case ASIA: url += "capitals_asia"; break;
-            case EUROPE: url += "capitals_europe"; break;
-            case NORTH_AMERICA: url += "capitals_north_america"; break;
-            case SOUTH_AMERICA: url += "capitals_south_america"; break;
-            case OCEANIA: url += "capitals_oceania"; break;
+        URL inputUrl = Main.class.getResource(PATH + continent.name().toLowerCase());
+        try {
+            this.inputStream = inputUrl.openStream();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        this.file = Paths.get(url);
     }
     
     
