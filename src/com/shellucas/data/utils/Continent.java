@@ -1,7 +1,5 @@
 package com.shellucas.data.utils;
 
-import org.jetbrains.annotations.Contract;
-
 public enum Continent {
 
     AFRICA("Africa"),
@@ -17,7 +15,6 @@ public enum Continent {
         this.name = name;
     }
 
-    @Contract(pure = true)
     public String getName() {
         return name;
     }
