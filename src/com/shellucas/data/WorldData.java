@@ -10,6 +10,8 @@ import java.util.Map;
  */
 public class WorldData {
 
+    private static WorldData WORLD_DATA = new WorldData();
+
     // Each map represents a continent with key, value pairs for each country and capital in that continent respectively
     private Map<String, String> africa;
     private Map<String, String> asia;
@@ -18,7 +20,7 @@ public class WorldData {
     private Map<String, String> southAmerica;
     private Map<String, String> australiaAndOceania;
 
-    public WorldData() {
+    private WorldData() {
         final CountryFileReader reader = new CountryFileReader();
 
         this.africa = reader.getCountriesAndCapitals(Continent.AFRICA);
@@ -53,4 +55,7 @@ public class WorldData {
         return australiaAndOceania;
     }
 
+    public static WorldData getWORLD_DATA() {
+        return WORLD_DATA;
+    }
 }

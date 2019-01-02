@@ -1,7 +1,5 @@
 package com.shellucas.data.utils;
 
-import quiz.Main;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,13 +36,13 @@ public class CountryFileReader {
     }
 
     private void setContinent(Continent continent) {
-        URL inputUrl = Main.class.getResource(PATH + continent.name().toLowerCase());
+        URL inputUrl = getClass().getResource(PATH + continent.name().toLowerCase());
         try {
             this.inputStream = inputUrl.openStream();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-    
+
+
 }
