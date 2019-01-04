@@ -13,12 +13,12 @@ public class WorldData {
     private static WorldData WORLD_DATA = new WorldData();
 
     // Each map represents a continent with key, value pairs for each country and capital in that continent respectively
-    private Map<String, String> africa;
-    private Map<String, String> asia;
-    private Map<String, String> europe;
-    private Map<String, String> northAmerica;
-    private Map<String, String> southAmerica;
-    private Map<String, String> australiaAndOceania;
+    private final Map<String, String> africa;
+    private final Map<String, String> asia;
+    private final Map<String, String> europe;
+    private final Map<String, String> northAmerica;
+    private final Map<String, String> southAmerica;
+    private final Map<String, String> australiaAndOceania;
 
     private WorldData() {
         final CountryFileReader reader = new CountryFileReader();

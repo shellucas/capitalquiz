@@ -1,6 +1,7 @@
 package com.shellucas.quiz.questions;
 
 import java.util.Map;
+import java.util.Random;
 
 public class Question {
 
@@ -10,6 +11,23 @@ public class Question {
     private Map<String, String> continent;
     private String country;
 
+    /**
+     * To create a random question.
+     *
+     * @param type
+     * @param continent
+     */
+    public Question(QuestionType type, Map<String, String> continent) {
+        this(type, continent, (String) continent.keySet().toArray()[new Random().nextInt(continent.keySet().size())]);
+    }
+
+    /**
+     * To create a question with a specified country
+     *
+     * @param type
+     * @param continent
+     * @param country
+     */
     public Question(QuestionType type, Map<String, String> continent, String country) {
         this.number = ++nrQuestions;
         this.type = type;
@@ -31,6 +49,40 @@ public class Question {
 
     public String getCountry() {
         return country;
+    }
+
+    public boolean answer(String city) {
+        return continent.get(country).equals(city);
+    }
+
+    public String getAnswer() {
+        return continent.get(country);
+    }
+
+    public String[] generateAnswers(int answers) {
+        if (type == QuestionType.OPEN) return null;
+        String[] fakes = new String[answers];
+        Random random = new Random();
+        for (int i = 0; i < answers; i++) {
+            // TODO remove duplicate answers
+            String answer;
+            while ((answer = (String) continent.values().toArray()[random.nextInt(continent.size())]).equals(continent.get(country)));
+            fakes[i] = answer;
+        }
+        return fakes;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Question) {
+            Question question = (Question) obj;
+            return this.type == question.type
+                    && this.continent == question.continent
+                    && this.country.equals(question.country);
+        } else {
+            return false;
+        }
+
     }
 
     @Override

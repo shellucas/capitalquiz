@@ -6,7 +6,17 @@ class QuestionList extends ArrayList<Question> {
 
     private static QuestionList QUESTIONLIST = new QuestionList();
 
-    static QuestionList getQUESTIONLIST() {
+    private QuestionList() {
+    }
+
+    public static QuestionList getQUESTIONLIST() {
         return QUESTIONLIST;
+    }
+
+    @Override
+    public boolean add(Question question) {
+        // To check if the question isn't already in the list.
+        if (this.contains(question)) return false;
+        return super.add(question);
     }
 }
